@@ -5,6 +5,10 @@
 //                  Oyvind Sean Kinsey http://kinsey.no/blog (2010)
 //                  Victor Homyakov <victor-homyakov@users.sourceforge.net> (2010)
 
+// Modified by Shea Rial <sheatrevor@gmail.com> (2012) to add RequireJS AMD support
+
+define(function(){
+
 /**
  * Main function giving a function stack trace with a forced or passed in Error
  *
@@ -12,12 +16,12 @@
  * @cfg {Boolean} guess If we should try to resolve the names of anonymous functions
  * @return {Array} of Strings with functions, lines, files, and arguments where possible
  */
-function printStackTrace(options) {
+var printStackTrace = function (options) {
     options = options || {guess: true};
     var ex = options.e || null, guess = !!options.guess;
     var p = new printStackTrace.implementation(), result = p.run(ex);
     return (guess) ? p.guessAnonymousFunctions(result) : result;
-}
+};
 
 printStackTrace.implementation = function() {
 };
@@ -414,3 +418,8 @@ printStackTrace.implementation.prototype = {
         return '(?)';
     }
 };
+
+// Return a reference to the printStackTrace function
+return printStackTrace;
+
+});
